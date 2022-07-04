@@ -8,24 +8,33 @@ function loadPage(view) {
 }
 
 const routes = [
-      {
-        path: '/',
-        name: 'home',
-        component: loadPage('HomeView')
-      },
-//   {
-//     path: '/about',
-//     name: 'about',
-//     // route level code-splitting
-//     // this generates a separate chunk (about.[hash].js) for this route
-//     // which is lazy-loaded when the route is visited.
-//     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-//   }
+  {
+    path: '/',
+    name: 'home',
+    component: loadPage('HomeView')
+  },
+  {
+    path: '/voting',
+    name: 'Voting',
+    component: loadPage('VotingView')
+  },
+  {
+    path: '/breeds',
+    name: 'Breeds',
+    component: loadPage('BreedsView')
+  },
+  {
+    path: '/gallery',
+    name: 'Gallery',
+    component: loadPage('GalleryView')
+  }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  linkActiveClass: 'active-link',
+  linkExactActiveClass: ''
 })
 
 export default router

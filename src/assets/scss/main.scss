@@ -19,3 +19,20 @@ a {
 li {
   list-style: none;
 }
+
+.icon-link {
+  transition: all 0.3s;
+
+  path {
+    fill: $color-peach-main;
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    background: $color-peach-main;
+
+    path {
+      fill: #fff;
+    }
+  }
+}

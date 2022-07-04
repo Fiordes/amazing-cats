@@ -1,7 +1,7 @@
 <script>
 import AsideNavigation from "@/components/navigation/AsideNavigation";
 export default {
-  components: {AsideNavigation}
+  components: { AsideNavigation}
 }
 </script>
 
@@ -9,6 +9,9 @@ export default {
   <div class="app-container">
     <AsideNavigation/>
     <router-view />
+<!--    <IconLink  linkTo="/breeds">-->
+<!--      <IconDislike/>-->
+<!--    </IconLink>-->
   </div>
 </template>
 

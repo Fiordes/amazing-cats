@@ -20,7 +20,7 @@ export default {
             <div class="nav-card__wrapper">
               <img src="@/assets/images/vote-table.png" alt="Vote Table"></div>
             <figcaption>
-              <router-link class="nav-link" to="/">VOTING</router-link>
+              <router-link class="nav-link" to="/voting">VOTING</router-link>
             </figcaption>
           </figure>
         </li>
@@ -29,7 +29,7 @@ export default {
             <div class="nav-card__wrapper">
               <img src="@/assets/images/pet-breeds.png" alt="Pet Breeds"></div>
             <figcaption>
-              <router-link class="nav-link" to="/">BREEDS</router-link>
+              <router-link class="nav-link" to="/breeds">BREEDS</router-link>
             </figcaption>
           </figure>
         </li>
@@ -38,7 +38,7 @@ export default {
             <div class="nav-card__wrapper">
               <img src="@/assets/images/images-search.png" alt="Galery"></div>
             <figcaption>
-              <router-link class="nav-link" to="/">GALLERY</router-link>
+              <router-link class="nav-link" to="/gallery">GALLERY</router-link>
             </figcaption>
           </figure>
         </li>
@@ -68,9 +68,9 @@ h1 {
 }
 
 h2 {
-  color: $color-gray;
   font: 400 20px/29px $main-font;
   margin-bottom: 60px;
+  color: $color-gray;
 }
 
 .links-wrapper {
@@ -127,17 +127,29 @@ h2 {
 
   figcaption {
     margin-top: 10px;
-    background: #FFFFFF;
-    border-radius: 10px;
+
     text-align: center;
     width: 100%;
-    padding: 10px 0;
 
 
     a {
+      display: block;
+      padding: 10px 0;
       color: $color-peach-main;
       letter-spacing: 2px;
       font: 500 12px/16px $main-font;
+      transition: all 0.3s;
+      background: #FFFFFF;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: $color-peach-secondary;
+      }
+
+      &.active-link {
+        background: $color-peach-main;
+        color: #fff;
+      }
     }
   }
 }
