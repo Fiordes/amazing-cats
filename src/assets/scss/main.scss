@@ -20,7 +20,31 @@ li {
   list-style: none;
 }
 
-.icon-link {
+button {
+  cursor: pointer;
+}
+
+.view-container {
+  padding: 30px 30px 18px;
+}
+
+.content-container {
+  max-width: 680px;
+  width: 100%;
+  margin-left: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 20px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+
+.icon-link,
+.view-header__link {
   transition: all 0.3s;
 
   path {
@@ -29,10 +53,44 @@ li {
   }
 
   &:hover {
+    background: $color-peach-secondary;
+  }
+}
+
+.back-button {
+  transition: all 0.3s;
+
+  path {
+    fill: $color-peach-main;
+  }
+
+  &:hover {
+    background: $color-peach-main;
+
+    path {
+      filL: #fff;
+    }
+  }
+}
+
+.view-header__link {
+  &.active-link {
     background: $color-peach-main;
 
     path {
       fill: #fff;
     }
   }
+}
+
+.view-title {
+  font: 500 20px/30px $main-font;
+  background: $color-peach-main;
+  color: #fff;
+  padding: 5px 30px;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  max-width: 143px;
+  text-align: center;
+  margin-left: 10px;
 }

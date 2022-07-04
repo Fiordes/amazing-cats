@@ -10,7 +10,7 @@ function loadPage(view) {
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: loadPage('HomeView')
   },
   {

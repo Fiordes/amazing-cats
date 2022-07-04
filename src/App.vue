@@ -1,19 +1,35 @@
-<script>
-import AsideNavigation from "@/components/navigation/AsideNavigation";
-export default {
-  components: { AsideNavigation}
-}
-</script>
-
 <template>
   <div class="app-container">
     <AsideNavigation/>
-    <router-view />
-<!--    <IconLink  linkTo="/breeds">-->
-<!--      <IconDislike/>-->
-<!--    </IconLink>-->
+    <div :class="[isHomePage ? '' : 'view-container']">
+      <ViewHeader v-if="!isHomePage"/>
+      <router-view/>
+    </div>
+    <!--    <IconLink  linkTo="/breeds">-->
+    <!--      <IconDislike/>-->
+    <!--    </IconLink>-->
   </div>
 </template>
+
+<script>
+import AsideNavigation from "@/components/navigation/AsideNavigation";
+import ViewHeader from "@/components/ViewHeader/ViewHeader";
+import {useRoute} from 'vue-router';
+import {computed} from "vue";
+
+export default {
+  components: {ViewHeader, AsideNavigation},
+  setup() {
+    const route = useRoute();
+    const isHomePage = computed(() => {
+      return route.name === 'Home'
+    })
+    return {
+      isHomePage
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .app-container {

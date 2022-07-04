@@ -1,5 +1,7 @@
 <template>
-  <h2>Gallery</h2>
+  <div class="view-container">
+    <h2>Gallery</h2>
+  </div>
 </template>
 
 <script>

@@ -1,10 +1,19 @@
 <template>
-  <h2>Breeds</h2>
+  <div class="content-container">
+    <div class="header">
+      <GoBackButton/>
+      <h2 class="view-title">BREEDS</h2>
+    </div>
+  </div>
 </template>
 
 <script>
+import GoBackButton from "@/components/UI/GoBackButton";
+
+
 export default {
-  name: "BreedsView"
+  name: "BreedsView",
+  components: {GoBackButton}
 }
 </script>
 

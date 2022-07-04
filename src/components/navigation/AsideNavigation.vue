@@ -1,9 +1,3 @@
-<script>
-export default {
-  name: "AsideNavigation"
-}
-</script>
-
 <template>
   <div class="navigation-container">
     <router-link to="/" class="logo-link">
@@ -47,6 +41,11 @@ export default {
   </div>
 </template>
 
+<script>
+export default {
+  name: "AsideNavigation"
+}
+</script>
 
 <style scoped lang="scss">
 .navigation-container {

@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-
+  <div class="view-container">
+    <h2>Voting</h2>
   </div>
 </template>
 
