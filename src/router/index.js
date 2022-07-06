@@ -24,6 +24,12 @@ const routes = [
     component: loadPage('BreedsView')
   },
   {
+    path: '/breeds/:id',
+    name: 'Breed',
+    component: loadPage('BreedView'),
+    props: true
+  },
+  {
     path: '/gallery',
     name: 'Gallery',
     component: loadPage('GalleryView')

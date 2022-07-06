@@ -5,9 +5,6 @@
       <ViewHeader v-if="!isHomePage"/>
       <router-view/>
     </div>
-    <!--    <IconLink  linkTo="/breeds">-->
-    <!--      <IconDislike/>-->
-    <!--    </IconLink>-->
   </div>
 </template>
 
@@ -15,17 +12,24 @@
 import AsideNavigation from "@/components/navigation/AsideNavigation";
 import ViewHeader from "@/components/ViewHeader/ViewHeader";
 import {useRoute} from 'vue-router';
-import {computed} from "vue";
+import {computed, onMounted} from "vue";
+import {useStore} from "vuex";
+
 
 export default {
   components: {ViewHeader, AsideNavigation},
   setup() {
     const route = useRoute();
+    const store = useStore();
     const isHomePage = computed(() => {
       return route.name === 'Home'
+    });
+
+    onMounted(async () => {
+      await store.dispatch('getBreedsAction');
     })
     return {
-      isHomePage
+      isHomePage,
     }
   }
 }
