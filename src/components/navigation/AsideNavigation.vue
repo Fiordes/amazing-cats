@@ -23,7 +23,7 @@
             <div class="nav-card__wrapper">
               <img src="@/assets/images/pet-breeds.png" alt="Pet Breeds"></div>
             <figcaption>
-              <router-link class="nav-link" to="/breeds">BREEDS</router-link>
+              <router-link class="nav-link" to="/breeds" exact>BREEDS</router-link>
             </figcaption>
           </figure>
         </li>

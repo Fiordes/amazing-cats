@@ -40,7 +40,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
   linkActiveClass: 'active-link',
-  linkExactActiveClass: ''
+  linkExactActiveClass: 'active-link'
 })
 
 export default router
