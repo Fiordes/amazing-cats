@@ -1,0 +1,31 @@
+.splide {
+  &__pagination {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background: #fff;
+    border-radius: 20px;
+    bottom: -15px;
+
+    li {
+      display: flex !important;
+
+      &:not(:last-child) {
+        margin-right: 5px;
+      }
+    }
+
+    button {
+      width: 10px;
+      height: 10px;
+      border: none;
+      background: $color-peach-secondary;
+      border-radius: 50%;
+
+      &.is-active {
+        background: $color-peach-main;
+      }
+    }
+  }
+}
