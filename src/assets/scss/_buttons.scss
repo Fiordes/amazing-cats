@@ -1,0 +1,59 @@
+button {
+  cursor: pointer;
+}
+
+.icon-link,
+.view-header__link {
+  transition: all 0.3s;
+
+  path {
+    fill: $color-peach-main;
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    background: $color-peach-secondary;
+  }
+}
+
+.back-button {
+  transition: all 0.3s;
+
+  path {
+    fill: $color-peach-main;
+  }
+
+  &:hover {
+    background: $color-peach-main;
+
+    path {
+      fill: #fff;
+    }
+  }
+}
+.sort-button {
+  display: flex;
+  align-items: center;
+  background: $color-light-gray;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-left: 10px;
+
+  .sort-icon {
+    path {
+      fill: $color-gray;
+    }
+  }
+
+  &:hover {
+    border-color: $color-peach-secondary;
+
+    .sort-icon {
+      path {
+        fill: $color-peach-main;
+      }
+    }
+  }
+}

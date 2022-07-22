@@ -27,6 +27,8 @@ export default {
 
     onMounted(async () => {
       await store.dispatch('getBreedsAction');
+
+      localStorage.setItem('breedsArray', JSON.stringify(store.state.breeds))
     })
     return {
       isHomePage,

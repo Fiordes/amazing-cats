@@ -1,12 +1,14 @@
 import { createStore } from 'vuex';
-import { axiosRequest } from '../composables/axios'
+import { axiosRequest } from '@/composables/axios'
 
 
 export default createStore({
     state: {
       loaded: false,
       breeds: null,
-      breed: null
+      breed: null,
+      searchQuery: null,
+      breedImages: null
     },
     getters: {},
     mutations: {
@@ -15,11 +17,18 @@ export default createStore({
       },
       setBreed(state, payload) {
         state.breed = payload
+      },
+      setBreedImages(state, payload) {
+          state.breedImages = payload
+        },
+      setSearchQuery(state, payload) {
+        state.searchQuery = payload
       }
     },
     actions: {
       async getBreedsAction({commit}) {
           try {
+          // Can use limit
               const {data} = await axiosRequest.get('https://api.thecatapi.com/v1/breeds');
               commit('setBreeds', data);
           } catch(e) {
@@ -35,11 +44,15 @@ export default createStore({
                     breed_id: query.breed_id
                 }
             });
-            commit('setBreed', data)
+            commit('setBreedImages', data)
         } catch(e) {
             throw new Error(e.data.message)
         }
+      },
+      changeSearchQueryAction({commit}, payload) {
+        commit('setSearchQuery', payload)
       }
+
     },
     modules: {}
 });

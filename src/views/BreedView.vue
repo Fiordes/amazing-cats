@@ -8,7 +8,7 @@
       </div>
       <div class="body">
         <Splide :options="slideOptions">
-          <SplideSlide v-for="item in breed" :key="item.id">
+          <SplideSlide v-for="item in breedImages" :key="item.id">
             <div class="slide-content" :style="{backgroundImage: `url(${item.url})`}"></div>
           </SplideSlide>
         </Splide>
@@ -68,14 +68,17 @@ export default {
     const breed = computed(() => {
       return store.state.breed
     });
+    const breedImages = computed(() => {
+      return store.state.breedImages
+    })
     const breedOption = computed(() => {
       return {
-        breedName: breed.value[0].breeds[0].name,
-        breedDescription: breed.value[0].breeds[0].description,
-        breedTemperament: breed.value[0].breeds[0].temperament,
-        breedOrigin: breed.value[0].breeds[0].origin,
-        breedWeight: breed.value[0].breeds[0].weight.metric,
-        breedLife: breed.value[0].breeds[0].life_span
+        breedName: breed.value.name,
+        breedDescription: breed.value.description,
+        breedTemperament: breed.value.temperament,
+        breedOrigin: breed.value.origin,
+        breedWeight: breed.value.weight.metric,
+        breedLife: breed.value.life_span
       }
     })
 
@@ -100,7 +103,8 @@ export default {
       breed,
       id,
       slideOptions,
-      breedOption
+      breedOption,
+      breedImages
     }
   }
 
@@ -108,6 +112,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.content-container {
+  .header {
+    justify-content: flex-start;
+  }
+}
 .view {
   &-title {
     background: $color-peach-secondary;

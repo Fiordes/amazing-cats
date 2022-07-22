@@ -1,6 +1,6 @@
 <template>
   <div class="search-bar__wrapper">
-    <input type="text" placeholder="Search for breeds by name" v-model="searchQuery">
+    <input type="text" placeholder="Search for breeds by name" @input="change" v-model="searchQuery">
     <span class="search-bar__icon">
       <IconSearch/>
     </span>
@@ -9,15 +9,37 @@
 
 <script>
 import IconSearch from "@/components/icons/IconSearch";
-import {ref} from "vue";
+import {computed, ref, watch} from "vue";
+import {useStore} from "vuex";
+import {useRoute} from "vue-router";
 
 export default {
   name: "SearchBar",
   components: {IconSearch},
   setup() {
+    const route = useRoute();
+
+    const store = useStore();
     const searchQuery = ref('');
+
+
+    const pathQuery = computed(() => {
+      if(searchQuery.value === '')  {
+         return `${route.path}`
+      }
+      return `${route.path}?search=${searchQuery.value}`
+    })
+    watch(searchQuery, () => {
+      window.history.pushState({}, null, pathQuery.value);
+    })
+    const change = () => {
+      store.dispatch('changeSearchQueryAction', searchQuery);
+    }
+
+
     return {
-      searchQuery
+      searchQuery,
+      change
     }
   }
 }
@@ -40,6 +62,10 @@ export default {
       border-color: $color-peach-secondary;
     }
 
+    &:focus-within {
+      border-color: $color-peach-main;
+    }
+
     input {
       outline: none;
       background: transparent;
@@ -50,6 +76,7 @@ export default {
       width: 100%;
     }
   }
+
   &__icon {
     background: $color-peach-secondary;
     border-radius: 10px;
