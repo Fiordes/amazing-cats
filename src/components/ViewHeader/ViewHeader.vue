@@ -7,13 +7,13 @@
 <!--        <IconSearch/>-->
 <!--      </span>-->
     </div>
-    <router-link class="view-header__link" to="/breeds">
+    <router-link class="view-header__link" to="/likes">
       <IconLike/>
     </router-link>
-    <router-link class="view-header__link" to="/">
+    <router-link class="view-header__link" to="/favorites">
       <IconFavorites/>
     </router-link>
-    <router-link class="view-header__link" to="/">
+    <router-link class="view-header__link" to="/dislikes">
       <IconDislike/>
     </router-link>
   </div>

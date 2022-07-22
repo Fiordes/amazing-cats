@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { axiosRequest } from '@/composables/axios'
+import { useAxios } from '@/composables/useAxios'
 
 
 export default createStore({
@@ -29,7 +29,7 @@ export default createStore({
       async getBreedsAction({commit}) {
           try {
           // Can use limit
-              const {data} = await axiosRequest.get('https://api.thecatapi.com/v1/breeds');
+              const {data} = await useAxios.get('https://api.thecatapi.com/v1/breeds');
               commit('setBreeds', data);
           } catch(e) {
             throw new Error(e.data.message)
@@ -38,7 +38,7 @@ export default createStore({
       async getImagesAction({commit}, query) {
         try {
 //         search?limit=10&breed_id=aege
-            const {data} = await axiosRequest.get('https://api.thecatapi.com/v1/images/search', {
+            const {data} = await useAxios.get('https://api.thecatapi.com/v1/images/search', {
                 params: {
                     limit: query.limit,
                     breed_id: query.breed_id
