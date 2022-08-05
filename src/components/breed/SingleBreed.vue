@@ -1,14 +1,15 @@
 <template>
-  <div class="breeds-grid__item">
-    <router-link :to="`/breeds/${breed.id}`">
+  <div class="breeds-grid__item" :class="positionClass" :data-name="breed.name">
+    <router-link :to="`/breeds/${breed.id}`" @click="setBreedClick">
       <img v-if="breed.image" :src="breed.image.url" :alt="breed.name">
       <p v-else> ESLE</p>
     </router-link>
-    <span class="grid-item__label">{{ breed.name }}</span>
   </div>
 </template>
 
 <script>
+
+import {useStore} from "vuex";
 
 export default {
   name: "SingleBreed",
@@ -18,6 +19,20 @@ export default {
       default: () => {
       },
       require: true
+    },
+    positionClass: {
+      type: String,
+      default: ""
+    }
+  },
+  setup(props) {
+    const store = useStore();
+
+    const setBreedClick = () => {
+        store.commit("setBreed", props.breed)
+    }
+    return {
+      setBreedClick
     }
   }
 
@@ -44,21 +59,33 @@ export default {
       transition: all 0.3s;
       opacity: 0;
       pointer-events: none;
+      border-radius: 20px;
     }
 
-    &__label {
-      visibility: hidden;
-      opacity: 0;
+    &:after {
+      content: attr(data-name);
+      display: block;
+      padding: 5px 10px;
+      text-align: center;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
       transition: all 0.3s;
-      width: 100%;
+      max-width: 90%;
       background: #fff;
       color: $color-peach-main;
+      opacity: 0;
+      pointer-events: none;
+      border-radius: 10px;
     }
 
     &:hover {
-      &:before {
+      &:before,
+      &:after {
         opacity: 1;
       }
+
     }
 
     a {
@@ -67,11 +94,56 @@ export default {
       height: 100%;
     }
 
-
     img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+
     }
+
+    &.position-1 {
+      grid-row: 1/3;
+    }
+
+    &.position-5 {
+      grid-row: 2/4;
+      grid-column: 2/4;
+    }
+
+    &.position-8 {
+      grid-row: 4/6;
+      grid-column: 3/4;
+    }
+
+    &.position-9 {
+      grid-row: 5/7;
+      grid-column: 1/3;
+    }
+
+    &.position-11 {
+      grid-row: 7/9;
+    }
+
+    &.position-15 {
+      grid-row: 8/10;
+      grid-column: 2/4;
+    }
+
+    &.position-16 {
+      grid-row: 10/12;
+      grid-column: 3/4;
+    }
+
+    &.position-20 {
+      grid-row: 11/13;
+      grid-column: 1/3;
+    }
+
+
   }
+
+
 }
 
 </style>

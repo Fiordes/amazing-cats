@@ -33,6 +33,21 @@ const routes = [
     path: '/gallery',
     name: 'Gallery',
     component: loadPage('GalleryView')
+  },
+  {
+   path: '/likes',
+   name: 'Likes',
+   component: loadPage('LikesView'),
+  },
+  {
+   path: '/favorites',
+   name: 'Favorites',
+   component: loadPage('FavoritesView'),
+  },
+  {
+   path: '/dislikes',
+   name: 'Dislikes',
+   component: loadPage('DislikesView')
   }
 ]
 

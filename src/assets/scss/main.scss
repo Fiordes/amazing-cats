@@ -1,5 +1,6 @@
 @import './font.scss';
 @import './variables.scss';
+@import './buttons.scss';
 @import './splide.scss';
 
 * {
@@ -21,9 +22,6 @@ li {
   list-style: none;
 }
 
-button {
-  cursor: pointer;
-}
 
 .view-container {
   padding: 30px 30px 18px;
@@ -40,7 +38,10 @@ button {
   .header {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
+    &.flex-start {
+      justify-content: flex-start;
+    }
   }
 
   .body {
@@ -54,33 +55,17 @@ button {
   }
 }
 
-.icon-link,
-.view-header__link {
+
+
+
+select {
   transition: all 0.3s;
-
-  path {
-    fill: $color-peach-main;
-    transition: all 0.3s;
-  }
-
+  outline: none;
   &:hover {
-    background: $color-peach-secondary;
+    border-color: $color-peach-secondary;
   }
-}
-
-.back-button {
-  transition: all 0.3s;
-
-  path {
-    fill: $color-peach-main;
-  }
-
-  &:hover {
-    background: $color-peach-main;
-
-    path {
-      filL: #fff;
-    }
+  &:focus {
+    border-color: $color-peach-main;
   }
 }
 
@@ -104,4 +89,17 @@ button {
   max-width: 143px;
   text-align: center;
   margin-left: 10px;
+}
+
+
+.breeds-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 140px;
+  margin-top: 20px;
+  grid-gap: 20px;
+
+  &.single-grid {
+    grid-template-rows: auto;
+  }
 }
