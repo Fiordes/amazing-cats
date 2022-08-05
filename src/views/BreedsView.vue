@@ -152,7 +152,10 @@ select {
 }
 
 .bomba {
-  display: block;;
+  display: block;
+}
+.asd {
+  font-size: 1123px;
 }
 .breeds-grid {
   display: grid;
