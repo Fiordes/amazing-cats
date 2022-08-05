@@ -1,11 +1,7 @@
 <template>
   <div class="view-header__wrapper">
     <div class="view-header__search">
-<!--      <input type="text" placeholder="Search for breeds by name" v-model="searchQuery">-->
       <SearchBar/>
-<!--      <span class="search-bar__icon">-->
-<!--        <IconSearch/>-->
-<!--      </span>-->
     </div>
     <router-link class="view-header__link" to="/likes">
       <IconLike/>
@@ -23,7 +19,6 @@
 import IconLike from "@/components/icons/IconLike";
 import IconFavorites from "@/components/icons/IconFavorites";
 import IconDislike from "@/components/icons/IconDislike";
-// import IconSearch from "@/components/icons/IconSearch";
 import SearchBar from "@/components/UI/SearchBar";
 
 export default {
