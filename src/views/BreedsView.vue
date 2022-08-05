@@ -150,6 +150,10 @@ select {
     border: none;
   }
 }
+
+.bomba {
+  display: block;;
+}
 .breeds-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
