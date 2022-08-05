@@ -5,7 +5,13 @@
       <h2 class="view-title">BREEDS</h2>
       <select v-model="selectBreed">
         <option value="All breeds" selected>All breeds</option>
-        <option v-for="option in breedsArray" :key="option.id" :value="option.name">{{ option.name }}</option>
+        <option
+            v-for="option in selectValue"
+            :key="option.id"
+            :value="option"
+        >
+          {{ option }}
+        </option>
       </select>
 
       <select v-model="itemsToShow">
@@ -24,7 +30,8 @@
     <div class="breeds-grid" :class="gridClass">
       <SingleBreed
           v-for="(breed, index) in filteredBreed"
-          :positionClass="`position-${index+1}`" :key="breed.id"
+          :positionClass="`position-${index + 1}`"
+          :key="breed.id"
           :breed="breed"
       />
     </div>
@@ -33,7 +40,7 @@
 
 <script>
 import GoBackButton from "@/components/UI/GoBackButton";
-import {useStore} from 'vuex';
+import {useStore} from "vuex";
 import {computed, onMounted, ref} from "vue";
 import SingleBreed from "@/components/breed/SingleBreed";
 import IconAsc from "@/components/icons/IconAsc";
@@ -46,35 +53,38 @@ export default {
     IconDesc,
     IconAsc,
     SingleBreed,
-    GoBackButton
+    GoBackButton,
   },
   setup() {
-    const selectBreed = ref('All breeds');
+    const selectBreed = ref("All breeds");
     const itemsToShow = ref(5);
     const store = useStore();
     const searchQuery = computed(() => {
-      return store.state.searchQuery || ''
+      return store.state.searchQuery || "";
+    });
+
+    const selectValue = computed(() => {
+      return JSON.parse(localStorage.getItem("breedsArray")).map(breed => breed.name)
     })
 
     const breedsArray = computed(() => {
-      const arr =  JSON.parse(localStorage.getItem('breedsArray')).slice(0, itemsToShow.value)
-      if (selectBreed.value === 'All breeds') return arr.slice(0, itemsToShow.value)
-      return arr.filter(br => {
-        return br.name === selectBreed.value
-      }).slice(0, itemsToShow.value)
-    });
+      const arr = store.state.breeds;
 
+      if (selectBreed.value === "All breeds") return arr;
+
+      return arr.filter((br) => br.name === selectBreed.value)
+    })
 
     const filteredBreed = computed(() => {
       let filter = searchQuery.value;
-      if(!filter.length) return breedsArray.value.slice(0, itemsToShow.value)
-      return  breedsArray.value.filter( br => {
-        return br.name.toLowerCase().includes(filter.toLowerCase())
-      })
+      if (!filter.length) return breedsArray.value.slice(0, itemsToShow.value);
+      return breedsArray.value.filter((br) => {
+        return br.name.toLowerCase().includes(filter.toLowerCase());
+      });
     });
 
     const sortArray = () => {
-      return filteredBreed.value.sort((a, b) => {
+      return breedsArray.value.sort((a, b) => {
         if (a.name > b.name) {
           return -1;
         }
@@ -82,11 +92,11 @@ export default {
           return 1;
         }
         return 0;
-      })
-    }
+      });
+    };
 
     const reverseArray = () => {
-      return filteredBreed.value.sort((a, b) => {
+      return breedsArray.value.sort((a, b) => {
         if (a.name < b.name) {
           return -1;
         }
@@ -94,20 +104,16 @@ export default {
           return 1;
         }
         return 0;
-      })
-
-
-    }
+      });
+    };
 
     const gridClass = computed(() => {
-      return selectBreed.value !== 'All breeds' ? 'single-grid' : ''
-    })
-
-
+      return selectBreed.value !== "All breeds" ? "single-grid" : "";
+    });
 
 
     onMounted(() => {
-      store.commit('setBreed', null);
+      store.commit("setBreed", null);
     });
 
 
@@ -120,15 +126,16 @@ export default {
       itemsToShow,
       sortArray,
       reverseArray,
+      selectValue
       // searchedBreedsArray
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 select {
-  background: #F8F8F7;
+  background: #f8f8f7;
   border-radius: 10px;
   border: 2px solid transparent;
   color: $color-gray;
@@ -143,15 +150,12 @@ select {
     border: none;
   }
 }
-
-
 .breeds-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 140px;
   margin-top: 20px;
   grid-gap: 20px;
-
   &.single-grid {
     grid-template-rows: auto;
   }
