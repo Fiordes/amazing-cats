@@ -5,7 +5,7 @@ import { useAxios } from '@/composables/useAxios'
 export default createStore({
     state: {
       loaded: false,
-      breeds: null,
+      breeds: [],
       breed: null,
       searchQuery: null,
       breedImages: null
@@ -41,10 +41,34 @@ export default createStore({
             const {data} = await useAxios.get('https://api.thecatapi.com/v1/images/search', {
                 params: {
                     limit: query.limit,
-                    breed_id: query.breed_id
+                    breed_id: query.breed_id,
                 }
             });
             commit('setBreedImages', data)
+        } catch(e) {
+            throw new Error(e.data.message)
+        }
+      },
+      async getImagesWithParamsAction({commit}, query) {
+          try {
+              const {data} = await useAxios.get('https://api.thecatapi.com/v1/images/search', {
+                  params: {
+                      limit: query.limit || 5,
+                      breed_id: query.breed_id || '',
+                      order: query.order || '',
+                      mime_types: query.type || '',
+                  }
+              });
+              commit('setBreeds', data);
+
+          } catch(e) {
+              throw new Error(e.data.message)
+          }
+      },
+      async getImageWithUniqId({commit}, query) {
+        try {
+            const {data} = await useAxios.get(`https://api.thecatapi.com/v1/images/${query}`);
+            commit('setBreed', data)
         } catch(e) {
             throw new Error(e.data.message)
         }

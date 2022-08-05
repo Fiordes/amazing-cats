@@ -12,7 +12,7 @@
 import AsideNavigation from "@/components/navigation/AsideNavigation";
 import ViewHeader from "@/components/ViewHeader/ViewHeader";
 import {useRoute} from 'vue-router';
-import {computed, onMounted} from "vue";
+import {computed, onMounted, watch} from "vue";
 import {useStore} from "vuex";
 
 
@@ -25,9 +25,16 @@ export default {
       return route.name === 'Home'
     });
 
+    const breeds = computed(() => {
+      return store.state.breeds
+    })
+
     onMounted(async () => {
       await store.dispatch('getBreedsAction');
+    })
 
+    watch(breeds, () => {
+      console.log('Set to breeds obj to LS')
       localStorage.setItem('breedsArray', JSON.stringify(store.state.breeds))
     })
     return {
