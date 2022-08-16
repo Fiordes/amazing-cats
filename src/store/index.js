@@ -6,6 +6,7 @@ export default createStore({
     state: {
       loaded: false,
       breeds: [],
+      breedsImages: [],
       breed: null,
       searchQuery: null,
       breedImages: null
@@ -14,6 +15,9 @@ export default createStore({
     mutations: {
       setBreeds(state, payload) {
         state.breeds = payload
+      },
+      setBreedsImages(state, payload) {
+        state.breedsImages = payload
       },
       setBreed(state, payload) {
         state.breed = payload
@@ -59,7 +63,7 @@ export default createStore({
                       mime_types: query.type || '',
                   }
               });
-              commit('setBreeds', data);
+              commit('setBreedsImages', data);
 
           } catch(e) {
               throw new Error(e.data.message)

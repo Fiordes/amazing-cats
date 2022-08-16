@@ -61,14 +61,14 @@ export default {
     const searchQuery = computed(() => {
       return store.state.searchQuery || "";
     });
-    const selectValue = computed(() => {
-      return JSON.parse(localStorage.getItem("breedsArray")).map(breed => breed.name)
-    })
+    const selectValue = ref([]);
+
     const breedsArray = computed(() => {
       const arr = store.state.breeds;
       if (selectBreed.value === "All breeds") return arr;
       return arr.filter((br) => br.name === selectBreed.value)
-    })
+    });
+
     const filteredBreed = computed(() => {
       let filter = searchQuery.value;
       if (!filter.length) return breedsArray.value.slice(0, itemsToShow.value);
@@ -76,6 +76,7 @@ export default {
         return br.name.toLowerCase().includes(filter.toLowerCase());
       });
     });
+
     const sortArray = () => {
       return breedsArray.value.sort((a, b) => {
         if (a.name > b.name) {
@@ -87,6 +88,7 @@ export default {
         return 0;
       });
     };
+
     const reverseArray = () => {
       return breedsArray.value.sort((a, b) => {
         if (a.name < b.name) {
@@ -98,12 +100,19 @@ export default {
         return 0;
       });
     };
+
     const gridClass = computed(() => {
       return selectBreed.value !== "All breeds" ? "single-grid" : "";
     });
+
+
     onMounted(() => {
       store.commit("setBreed", null);
+      selectValue.value = JSON.parse(localStorage.getItem("breedsArray")).map(breed => breed.name);
+      console.log(selectValue.value)
     });
+
+
     return {
       breedsArray,
       searchQuery,
@@ -135,21 +144,6 @@ select {
     background: #fff;
     color: $color-gray;
     border: none;
-  }
-}
-
-.breeds-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 140px;
-  margin-top: 20px;
-  grid-gap: 20px;
-
-  &__item {
-    width: 100%;
-    position: relative;
-    cursor: pointer;
-    border-radius: 20px;
   }
 }
 </style>

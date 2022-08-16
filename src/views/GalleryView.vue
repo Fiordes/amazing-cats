@@ -7,10 +7,7 @@
         <IconUpload/>
         Upload
       </button>
-      <!--      <select v-model="selectBreed">-->
-      <!--        <option value="All breeds" selected>All breeds</option>-->
-      <!--        <option v-for="option in breedsArray" :key="option.id" :value="option.name">{{ option.name }}</option>-->
-      <!--      </select>-->
+
 
       <!--      <select v-model="itemsToShow">-->
       <!--        <option value="5" selected>5</option>-->
@@ -34,8 +31,9 @@
         <option value="jpg,png">Static</option>
         <option value="gif">Animated</option>
       </select>
-      <select name="breed" v-model="queryParams.breed">
-        <option value="abys">Abyssinian</option>
+      <select v-model="queryParams.breed">
+        <option value="All breeds" selected>All breeds</option>
+        <option v-for="option in breedsArray" :key="option.id" :value="option.name">{{ option.name }}</option>
       </select>
       <select name="limit" v-model="queryParams.limit">
         <option value="5">5 items per page</option>
