@@ -26,7 +26,8 @@
     <div class="selectors-wrapper">
       <select name="order" v-model="queryParams.order">
         <option value="Random" selected>Random</option>
-        <option value="asc">ASC</option>
+        <option value="Asc">ASC</option>
+        <option value="Desc">Desc</option>
       </select>
       <select name="type" v-model="queryParams.type">
         <option value="jpg,png" selected>Static</option>

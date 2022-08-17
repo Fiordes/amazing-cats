@@ -1,13 +1,16 @@
 <template>
-  <div class="breeds-grid__item" :class="positionClass" :data-name="!isPageGallery && breed.name">
+  <div class="breeds-grid__item"
+       :class="[isPageGallery ? 'gallery-item' : '' , positionClass]"
+       :data-name="!isPageGallery && breed.name"
+  >
     <router-link :to="`/${redirectPath}/${breed.id}`" @click="setBreedClick">
       <template v-if="isPageGallery">
         <img v-if="breed.url" :src="breed.url" :alt="breed.id">
-        <img src="@/assets/images/default-image.jpg" alt="Default Image" v-else />
+        <img src="@/assets/images/default-image.jpg" alt="Default Image" v-else/>
       </template>
       <template v-else>
         <img v-if="breed.image" :src="breed.image.url" :alt="breed.name">
-        <img src="@/assets/images/default-image.jpg" alt="Default Image" v-else />
+        <img src="@/assets/images/default-image.jpg" alt="Default Image" v-else/>
       </template>
     </router-link>
   </div>
@@ -45,7 +48,7 @@ export default {
     })
 
     const setBreedClick = () => {
-        store.commit("setBreed", props.breed)
+      store.commit("setBreed", props.breed)
     }
     return {
       setBreedClick,
@@ -102,7 +105,12 @@ export default {
       &:after {
         opacity: 1;
       }
+    }
 
+    &.gallery-item {
+      &:after {
+        content: 'Like';
+      }
     }
 
     a {

@@ -9,7 +9,8 @@ export default createStore({
       breedsImages: [],
       breed: null,
       searchQuery: null,
-      breedImages: null
+      breedImages: null,
+      favorites: [],
     },
     getters: {},
     mutations: {
@@ -27,6 +28,9 @@ export default createStore({
         },
       setSearchQuery(state, payload) {
         state.searchQuery = payload
+      },
+      setFavorites(state, payload) {
+        state.favorites = payload
       }
     },
     actions: {
@@ -61,6 +65,7 @@ export default createStore({
                       breed_id: query.breed_id || '',
                       order: query.order || '',
                       mime_types: query.type || '',
+                      size:'small'
                   }
               });
               console.log(data)
@@ -80,6 +85,26 @@ export default createStore({
       },
       changeSearchQueryAction({commit}, payload) {
         commit('setSearchQuery', payload)
+      },
+      async getFavoritesAction({commit}) {
+        try {
+            const {data} = await useAxios.get(`https://api.thecatapi.com/v1/favourites?limit=9&page=0&order=Desc&size=small`);
+            commit('setFavorites', data)
+        } catch(e) {
+            throw new Error(e.data.message)
+        }
+      },
+      async setFavoritesAction(query) {
+        try {
+            const {data} = await useAxios.get(`https://api.thecatapi.com/v1/favourites`, {
+                params: {
+                    image_id: query.id
+                }
+            });
+            console.log(data)
+        } catch(e) {
+            throw new Error(e.data.message)
+        }
       }
 
     },

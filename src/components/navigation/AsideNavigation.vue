@@ -3,8 +3,8 @@
     <router-link to="/" class="logo-link">
       <img src="@/assets/images/logo.svg" alt="Mac Paw">
     </router-link>
-    <h1>Hello Intern!</h1>
-    <h2>Welcome to MI 2022 Front-end test</h2>
+    <h1>Hello Dude</h1>
+    <h2>Lets watch how this cats amazing</h2>
 
     <div class="links-wrapper">
       <h2>Lets start using The Cat API</h2>
