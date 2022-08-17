@@ -46,7 +46,8 @@
     <div class="breeds-grid">
       <SingleBreed
           v-for="(breed, index) in ar"
-          :key="breed.id" :breed="breed"
+          :key="breed.id"
+          :breed="breed"
           :redirectPath="redirectPath"
           :positionClass="`position-${index+1}`"
       />
@@ -57,7 +58,7 @@
 <script>
 import GoBackButton from "@/components/UI/GoBackButton";
 import IconUpload from "@/components/icons/IconUpload";
-import {computed, reactive, watch} from "vue";
+import {computed, onMounted, reactive, watch} from "vue";
 import {useStore} from "vuex";
 import SingleBreed from "@/components/breeds/SingleBreed";
 import {useRoute} from "vue-router";
@@ -81,7 +82,7 @@ export default {
     const redirectPath = route.name.toLowerCase();
 
     const ar = computed(() => {
-      return store.state.breeds.slice(0, queryParams.limit)
+      return store.state.breedsImages
     })
 
     const breedsArray = computed(() => {
@@ -93,8 +94,13 @@ export default {
         queryParams,
         (value) => {
           store.dispatch('getImagesWithParamsAction', value)
+          // console.log(value)
         }
     )
+
+    onMounted(() => {
+      store.dispatch('getImagesWithParamsAction', queryParams)
+    })
 
     return {
       queryParams,

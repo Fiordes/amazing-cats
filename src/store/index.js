@@ -63,6 +63,7 @@ export default createStore({
                       mime_types: query.type || '',
                   }
               });
+              console.log(data)
               commit('setBreedsImages', data);
 
           } catch(e) {
