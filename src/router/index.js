@@ -1,6 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-function loadPage(view) {
+function loadPage(view, subfolder = null) {
+  if(subfolder) {
+      return () =>
+          import(
+            /* webpackChunkName: "view-[request]" */ `@/views/${subfolder}/${view}.vue`
+          );
+  }
   return () =>
     import(
       /* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`
@@ -21,18 +27,23 @@ const routes = [
   {
     path: '/breeds',
     name: 'Breeds',
-    component: loadPage('BreedsView')
+    component: loadPage('BreedsView','breeds')
   },
   {
     path: '/breeds/:id',
     name: 'Breed',
-    component: loadPage('BreedView'),
+    component: loadPage('BreedView','breeds'),
     props: true
   },
   {
     path: '/gallery',
     name: 'Gallery',
-    component: loadPage('GalleryView')
+    component: loadPage('GalleryView', 'gallery'),
+  },
+  {
+    path: '/gallery/:id',
+    name: 'GalleryBreed',
+    component: loadPage('GalleryBreed', 'gallery')
   },
   {
    path: '/likes',

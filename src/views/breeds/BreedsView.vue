@@ -31,6 +31,7 @@
       <SingleBreed
           v-for="(breed, index) in filteredBreed"
           :positionClass="`position-${index + 1}`"
+          :redirectPath="redirectPath"
           :key="breed.id"
           :breed="breed"
       />
@@ -42,9 +43,10 @@
 import GoBackButton from "@/components/UI/GoBackButton";
 import {useStore} from "vuex";
 import {computed, onMounted, ref} from "vue";
-import SingleBreed from "@/components/breed/SingleBreed";
+import SingleBreed from "@/components/breeds/SingleBreed";
 import IconAsc from "@/components/icons/IconAsc";
 import IconDesc from "@/components/icons/IconDesc";
+import {useRoute} from "vue-router";
 
 export default {
   name: "BreedsView",
@@ -55,13 +57,15 @@ export default {
     GoBackButton,
   },
   setup() {
+    const store = useStore();
+    const route = useRoute()
     const selectBreed = ref("All breeds");
     const itemsToShow = ref(5);
-    const store = useStore();
+    const selectValue = ref([]);
     const searchQuery = computed(() => {
       return store.state.searchQuery || "";
     });
-    const selectValue = ref([]);
+    const redirectPath = route.name.toLowerCase();
 
     const breedsArray = computed(() => {
       const arr = store.state.breeds;
@@ -109,7 +113,6 @@ export default {
     onMounted(() => {
       store.commit("setBreed", null);
       selectValue.value = JSON.parse(localStorage.getItem("breedsArray")).map(breed => breed.name);
-      console.log(selectValue.value)
     });
 
 
@@ -122,7 +125,8 @@ export default {
       itemsToShow,
       sortArray,
       reverseArray,
-      selectValue
+      selectValue,
+      redirectPath
       // searchedBreedsArray
     };
   },
@@ -130,20 +134,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-select {
-  background: #f8f8f7;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  color: $color-gray;
-  padding: 8px 10px;
-  font: 400 16px/24px $main-font, sans-serif;
-  margin-left: 10px;
-  position: relative;
 
-  option {
-    background: #fff;
-    color: $color-gray;
-    border: none;
-  }
-}
 </style>

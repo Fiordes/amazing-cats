@@ -65,3 +65,20 @@ button {
     }
   }
 }
+
+select {
+  background: #f8f8f7;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  color: $color-gray;
+  padding: 8px 10px;
+  font: 400 16px/24px $main-font, sans-serif;
+  margin-left: 10px;
+  position: relative;
+
+  option {
+    background: #fff;
+    color: $color-gray;
+    border: none;
+  }
+}

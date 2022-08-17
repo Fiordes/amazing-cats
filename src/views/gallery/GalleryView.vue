@@ -25,22 +25,31 @@
     </div>
     <div class="selectors-wrapper">
       <select name="order" v-model="queryParams.order">
-        <option value="Random">Random</option>
+        <option value="Random" selected>Random</option>
+        <option value="asc">ASC</option>
       </select>
       <select name="type" v-model="queryParams.type">
-        <option value="jpg,png">Static</option>
+        <option value="jpg,png" selected>Static</option>
         <option value="gif">Animated</option>
       </select>
       <select v-model="queryParams.breed">
         <option value="All breeds" selected>All breeds</option>
-        <option v-for="option in breedsArray" :key="option.id" :value="option.name">{{ option.name }}</option>
+        <option v-for="option in breedsArray" :key="option.id" :value="option">{{ option }}</option>
       </select>
       <select name="limit" v-model="queryParams.limit">
-        <option value="5">5 items per page</option>
+        <option value="5" selected>5 items per page</option>
+        <option value="10">10 items per page</option>
+        <option value="15">15 items per page</option>
+        <option value="20">20 items per page</option>
       </select>
     </div>
     <div class="breeds-grid">
-      <SingleBreed v-for="(breed, index) in ar" :key="breed.id" :breed="breed" :positionClass="`position-${index+1}`"/>
+      <SingleBreed
+          v-for="(breed, index) in ar"
+          :key="breed.id" :breed="breed"
+          :redirectPath="redirectPath"
+          :positionClass="`position-${index+1}`"
+      />
     </div>
   </div>
 </template>
@@ -50,7 +59,8 @@ import GoBackButton from "@/components/UI/GoBackButton";
 import IconUpload from "@/components/icons/IconUpload";
 import {computed, reactive, watch} from "vue";
 import {useStore} from "vuex";
-import SingleBreed from "@/components/breed/SingleBreed";
+import SingleBreed from "@/components/breeds/SingleBreed";
+import {useRoute} from "vue-router";
 
 export default {
   name: "GalleryView",
@@ -60,16 +70,22 @@ export default {
     IconUpload
   },
   setup() {
+    const route = useRoute();
     const store = useStore();
     const queryParams = reactive({
-      order: '',
-      type: '',
-      breed: '',
+      order: 'Random',
+      type: 'jpg,png',
+      breed: 'All breeds',
       limit: 5
     });
+    const redirectPath = route.name.toLowerCase();
 
     const ar = computed(() => {
       return store.state.breeds.slice(0, queryParams.limit)
+    })
+
+    const breedsArray = computed(() => {
+      return JSON.parse(localStorage.getItem("breedsArray")).map(breed => breed.name);
     })
 
 
@@ -82,7 +98,9 @@ export default {
 
     return {
       queryParams,
-      ar
+      ar,
+      breedsArray,
+      redirectPath
     }
   }
 }
@@ -106,6 +124,22 @@ export default {
     color: #fff;
 
   }
+}
+
+.selectors-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+
+  select {
+    margin-left: 0;
+
+    &:not(:last-of-type) {
+      margin-right: 10px;
+    }
+  }
+
 }
 
 

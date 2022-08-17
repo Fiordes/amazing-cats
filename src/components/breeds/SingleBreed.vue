@@ -1,8 +1,8 @@
 <template>
   <div class="breeds-grid__item" :class="positionClass" :data-name="breed.name">
-    <router-link :to="`/breeds/${breed.id}`" @click="setBreedClick">
+    <router-link :to="`/${redirectPath}/${breed.id}`" @click="setBreedClick">
       <img v-if="breed.image" :src="breed.image.url" :alt="breed.name">
-      <p v-else> ESLE</p>
+      <img src="@/assets/images/default-image.jpg" alt="Default Image" v-else />
     </router-link>
   </div>
 </template>
@@ -10,6 +10,7 @@
 <script>
 
 import {useStore} from "vuex";
+
 
 export default {
   name: "SingleBreed",
@@ -23,6 +24,10 @@ export default {
     positionClass: {
       type: String,
       default: ""
+    },
+    redirectPath: {
+      type: String,
+      default: ''
     }
   },
   setup(props) {
