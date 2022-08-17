@@ -1,8 +1,17 @@
 <template>
-  <div class="breeds-grid__item" :class="positionClass" :data-name="breed.name">
-    <router-link :to="`/breeds/${breed.id}`" @click="setBreedClick">
-      <img v-if="breed.image" :src="breed.image.url" :alt="breed.name">
-      <p v-else> ESLE</p>
+  <div class="breeds-grid__item"
+       :class="[isPageGallery ? 'gallery-item' : '' , positionClass]"
+       :data-name="!isPageGallery && breed.name"
+  >
+    <router-link :to="`/${redirectPath}/${breed.id}`" @click="setBreedClick">
+      <template v-if="isPageGallery">
+        <img v-if="breed.url" :src="breed.url" :alt="breed.id">
+        <img src="@/assets/images/default-image.jpg" alt="Default Image" v-else/>
+      </template>
+      <template v-else>
+        <img v-if="breed.image" :src="breed.image.url" :alt="breed.name">
+        <img src="@/assets/images/default-image.jpg" alt="Default Image" v-else/>
+      </template>
     </router-link>
   </div>
 </template>
@@ -10,6 +19,8 @@
 <script>
 
 import {useStore} from "vuex";
+import {computed} from "vue";
+
 
 export default {
   name: "SingleBreed",
@@ -23,16 +34,25 @@ export default {
     positionClass: {
       type: String,
       default: ""
+    },
+    redirectPath: {
+      type: String,
+      default: ''
     }
   },
   setup(props) {
     const store = useStore();
 
+    const isPageGallery = computed(() => {
+      return props.redirectPath === 'gallery'
+    })
+
     const setBreedClick = () => {
-        store.commit("setBreed", props.breed)
+      store.commit("setBreed", props.breed)
     }
     return {
-      setBreedClick
+      setBreedClick,
+      isPageGallery
     }
   }
 
@@ -85,7 +105,12 @@ export default {
       &:after {
         opacity: 1;
       }
+    }
 
+    &.gallery-item {
+      &:after {
+        content: 'Like';
+      }
     }
 
     a {
